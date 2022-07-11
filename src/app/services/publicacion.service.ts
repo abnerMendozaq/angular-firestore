@@ -29,11 +29,11 @@ export class PublicacionService {
     const colleccion = this.firestore.collection<RecepcionBean>(this.coleccion, ref => ref.where('idRecepcion', '==', idRecepcion));
     return colleccion.valueChanges();
   }
-  public editarRecepcion(recepcion: RecepcionBean) {
+  public editarRecepcion(idRecepcion: string, recepcion: RecepcionBean) {
     return new Promise<any>((resolve, reject) => {
       recepcion.idRecepcion = this.firestore.createId();
       this.firestore
-        .collection(this.coleccion).doc(recepcion.idRecepcion)
+        .collection(this.coleccion).doc(idRecepcion)
         .update(recepcion)
         .then(res => { }, err => reject(err));
     });

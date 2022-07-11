@@ -57,13 +57,13 @@ export class PublicacionComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribersForm();
-    if (this.idRecepcion!=null) {
+    if (this.idRecepcion != null) {
       this.getRecepcion();
     }
   }
-  private getRecepcion(){
+  private getRecepcion() {
     this.recepcionService.unaRecepcion(this.idRecepcion).subscribe({
-      next:data=>{
+      next: data => {
         this.formRecepcion.patchValue(data[0]);
       }
     })
@@ -161,14 +161,26 @@ export class PublicacionComponent implements OnInit {
     recepcion.usuarioRegistro = 'USUARIO PRUEBA';
     recepcion.saldo = recepcion.cantidad;
     recepcion.idCaja = 1;
+    // console.log(recepcion);
+    // return
     this.loading.setLoading = true;
-    this.recepcionService.guardarRecepcion(recepcion).then(data => {
-      console.log('hhhh');
-    }).catch(er => {
-      console.error(er);
-    }).finally(() => {
-      console.log('finalizado');
-    });
+    if (this.idRecepcion != null) {
+      this.recepcionService.editarRecepcion(this.idRecepcion,recepcion).then(data => {
+        console.log('hhhh');
+      }).catch(er => {
+        console.error(er);
+      }).finally(() => {
+        console.log('finalizado');
+      });
+    } else {
+      this.recepcionService.guardarRecepcion(recepcion).then(data => {
+        console.log('hhhh');
+      }).catch(er => {
+        console.error(er);
+      }).finally(() => {
+        console.log('finalizado');
+      });
+    }
     this.modalRef.hide();
     // this.recepcionService.registrarRecepcion(recepcion).subscribe({
     //   next: recepcion => {
