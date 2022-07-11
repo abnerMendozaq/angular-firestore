@@ -44,4 +44,13 @@ export class PublicacionesComponent implements OnInit {
     };
     this.modalRef = this.modalService.show(PublicacionComponent, Object.assign({ initialState, class: 'modal-xl modal-dialog-centered', ignoreBackdropClick: true }));
   }
+  public deleteItem(idRecepcion: string) {
+    this.publicacionService.eliminarRecepcion(idRecepcion).then(data => {
+      console.log(data);
+    }).catch(er => {
+      console.error(er);
+    }).finally(() => {
+      console.log('finalizado');
+    });
+  }
 }
