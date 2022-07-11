@@ -1,0 +1,154 @@
+<div class="card main-card">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">RECEPCION ENCOMIENDA</h5>
+        </div>
+        <div class="card-body registro-card">
+            <form [formGroup]="formRecepcion">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Destino</label>
+                            <select class="form-control" name="agencia_id" formControlName="idDestino">
+                                <option [value]="null" selected> Seleccione su Destino</option>
+                                <option *ngFor="let sucursal of listaSucursales" [value]="sucursal.idSucursal">
+                                    {{sucursal.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Forma de Pago</label>
+                            <select class="form-control" name="forma_pago" formControlName="formaPago">
+                                <option value="">Seleccione una forma de pago</option>
+                                <option [value]="pago.titulo" *ngFor="let pago of formasPago">{{pago.titulo}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Remitente</label>
+                            <input type="text" class="form-control" name="remitente" placeholder="Nombre Completo"
+                                formControlName="remitente"
+                                [ngClass]="{'is-invalid': !remitente.valid&&remitente.touched}" uppercase>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Consignatario</label>
+                            <input type="text" class="form-control" name="consignatario" placeholder="Nombre Completo"
+                                formControlName="destinatario"
+                                [ngClass]="{'is-invalid': !destinatario.valid&&destinatario.touched}" uppercase>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Telefono de consignatario</label>
+                            <input type="text" class="form-control" name="telefono_consignatario"
+                                placeholder="Numero Tel. Cel." formControlName="telefonoDestinatario"
+                                [ngClass]="{'is-invalid': !telefonoDestinatario.valid&&telefonoDestinatario.touched}">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-6 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Cantidad</label>
+                            <input class="form-control" type="text" name="cantidad" formControlName="cantidad"
+                                [ngClass]="{'is-invalid': !cantidad.valid&&cantidad.touched}" number>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Peso</label>
+                            <input class="form-control" type="text" name="peso" formControlName="peso"
+                                [ngClass]="{'is-invalid': !peso.valid&&peso.touched}" number>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Precio Unit.</label>
+                            <input class="form-control" type="text" name="precio_unitario"
+                                formControlName="precioUnitario"
+                                [ngClass]="{'is-invalid': !precioUnitario.valid&&precioUnitario.touched}" number>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-3">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Total</label>
+                            <input class="form-control" type="text" name="total" formControlName="total"
+                                [ngClass]="{'is-invalid': !total.valid&&total.touched}" number>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Contenido Encomienda</label>
+                            <textarea class="form-control" rows="3" name="contenido" formControlName="contenido"
+                                uppercase></textarea>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-12">
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="fragil" formControlName="fragil">
+                            <label class="custom-control-label" for="fragil">Fragil</label>
+                        </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="valorNoDeclarado"
+                                formControlName="valorNoDeclarado">
+                            <label class="custom-control-label" for="valorNoDeclarado">Valor no declarado</label>
+                        </div>
+                        <div class="custom-control custom-checkbox custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="sinDineroNiObjetosdeValor"
+                                formControlName="sinDinero">
+                            <label class="custom-control-label" for="sinDineroNiObjetosdeValor">Sin Dinero/Ni objetos de
+                                valor</label>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Observaciones</label>
+                            <input type="text" class="form-control" name="observaciones" placeholder="observacion"
+                                formControlName="observacion" />
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row" *ngIf="formaPago.value=='PAGADO'">
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Monto por Pagar: </label>
+                            <input type="text" class="form-control" name="montoPagar" formControlName="total"
+                                readonly />
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Cambio: </label>
+                            <input type="text" class="form-control" name="cambio" formControlName="cambio" readonly />
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4">
+                        <div class="form-group mb-3 fill">
+                            <label class="floating-label">Monto Bs: </label>
+                            <input type="text" class="form-control" name="efectivo" formControlName="monto"
+                                [ngClass]="{'is-invalid': !monto.valid&&monto.touched}" number />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-around">
+                <button type="submit" class="btn btn-primary btn-sm" [disabled]="formRecepcion.invalid"
+                    (click)="saveForm()">Registrar</button>
+                    <button class="btn btn-danger btn-sm" (click)="cancelForm()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
